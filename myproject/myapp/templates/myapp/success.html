@@ -1,0 +1,188 @@
+<!--
+<html>
+    <head><title>Success</title></head>
+    <body>
+     <h1>Registration successful!</h1>
+     <p><a href="{% url 'home' %}">Back to Home</a></p>
+    </body>
+</html>
+-->
+
+<!--SHREY
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Success</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f9f4;
+      font-family: Arial, sans-serif;
+    }
+
+    .success-container {
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .checkmark {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 4px solid #4CAF50;
+      position: relative;
+      animation: scaleIn 0.6s ease-in-out forwards;
+    }
+
+    .checkmark::after {
+      content: '';
+      position: absolute;
+      left: 25px;
+      top: 45px;
+      width: 25px;
+      height: 50px;
+      border-right: 5px solid #4CAF50;
+      border-bottom: 5px solid #4CAF50;
+      transform: rotate(45deg);
+      animation: drawCheck 0.5s ease-in-out 0.6s forwards;
+      opacity: 0;
+    }
+
+    .success-text {
+      font-size: 24px;
+      color: #4CAF50;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeInText 1s ease-in-out 1s forwards;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.3); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes drawCheck {
+      from { opacity: 0; height: 0; }
+      to { opacity: 1; height: 50px; }
+    }
+
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+    <h1>Registration successful!</h1><br>
+     <p><a href="{% url 'home' %}">Back to Home</a></p><br>
+  <div class="success-container">
+    <div class="checkmark"></div>
+    <div class="success-text">Success! Your action was completed 🎉</div>
+  </div>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #93c5fd, #fbcfe8);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card-box {
+      background: white;
+      padding: 3rem;
+      border-radius: 20px;
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      max-width: 480px;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 0.9s ease forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      color: #16a34a;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: inline-block;
+      background: #16a34a;
+      position: relative;
+      animation: scaleIn 0.6s ease;
+    }
+    @keyframes scaleIn {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+    .checkmark::after {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 18px;
+      width: 22px;
+      height: 40px;
+      border-right: 5px solid white;
+      border-bottom: 5px solid white;
+      transform: rotate(45deg);
+      opacity: 0;
+      animation: drawCheck 0.5s ease 0.4s forwards;
+    }
+    @keyframes drawCheck {
+      to { opacity: 1; }
+    }
+    .btn-custom {
+      margin-top: 20px;
+      background: #2563eb;
+      color: white;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      padding: 10px 20px;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    .btn-custom:hover {
+      background: #1e40af;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card-box">
+    <div class="checkmark"></div>
+    <h1>Registration Successful!</h1>
+    <p class="lead text-muted">Your details have been saved successfully ✅</p>
+    <a href="{% url 'home' %}" class="btn btn-custom">Move to Home</a>
+  </div>
+
+</body>
+</html>

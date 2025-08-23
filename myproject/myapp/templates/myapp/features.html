@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features - GlobEdu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+<h1 class="text-2xl font-bold text-red-600 flex items-center gap-2">
+  <!-- Graduation Cap Icon -->
+  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
+       viewBox="0 0 24 24" class="w-7 h-7 text-red-600">
+    <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM11 21h2v-5.91l-2 .91V21z"/>
+  </svg>
+  GlobEdu
+</h1>
+      <nav class="space-x-6 hidden md:flex">
+        <a href="/home" class="text-gray-700 hover:text-red-600">Home</a>
+        <a href="/about" class="text-gray-700 hover:text-red-600">About</a>
+        <a href="/features" class="text-red-600 font-semibold">Features</a>
+        <a href="/contact" class="text-gray-700 hover:text-red-600">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-r from-red-600 to-red-400 text-white py-16 text-center">
+    <div class="container mx-auto">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 animate-bounce">Our Features</h2>
+    <p class="text-lg">Smart tools & resources to boost your IELTS preparation.</p>
+  </section>
+
+<!-- Features Grid -->
+<section class="py-16">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+
+    <!-- Card -->
+    <div class="bg-white p-8 rounded-xl shadow-lg transform transition 
+                hover:-translate-y-3 hover:scale-105 hover:shadow-2xl duration-500 fade-up"
+         style="animation-delay: 0.1s">
+      <div class="text-5xl mb-4 transition-transform duration-500 hover:scale-125 hover:animate-bounce">📖</div>
+      <h3 class="font-bold text-xl mb-2">Full-Length Tests</h3>
+      <p class="text-gray-600">Simulate real IELTS exams with timed practice.</p>
+    </div>
+
+    <div class="bg-white p-8 rounded-xl shadow-lg transform transition 
+                hover:-translate-y-3 hover:scale-105 hover:shadow-2xl duration-500 fade-up"
+         style="animation-delay: 0.2s">
+      <div class="text-5xl mb-4 transition-transform duration-500 hover:scale-125 hover:animate-bounce">🎧</div>
+      <h3 class="font-bold text-xl mb-2">Listening Practice</h3>
+      <p class="text-gray-600">Real-world audio clips for better comprehension.</p>
+    </div>
+
+    <div class="bg-white p-8 rounded-xl shadow-lg transform transition 
+                hover:-translate-y-3 hover:scale-105 hover:shadow-2xl duration-500 fade-up"
+         style="animation-delay: 0.3s">
+      <div class="text-5xl mb-4 transition-transform duration-500 hover:scale-125 hover:animate-bounce">✍️</div>
+      <h3 class="font-bold text-xl mb-2">Writing Evaluations</h3>
+      <p class="text-gray-600">AI-powered scoring + mentor feedback.</p>
+    </div>
+
+    <div class="bg-white p-8 rounded-xl shadow-lg transform transition 
+                hover:-translate-y-3 hover:scale-105 hover:shadow-2xl duration-500 fade-up"
+         style="animation-delay: 0.4s">
+      <div class="text-5xl mb-4 transition-transform duration-500 hover:scale-125 hover:animate-bounce">🗣️</div>
+      <h3 class="font-bold text-xl mb-2">Speaking Mock</h3>
+      <p class="text-gray-600">Practice interviews with instant feedback.</p>
+    </div>
+
+    <div class="bg-white p-8 rounded-xl shadow-lg transform transition 
+                hover:-translate-y-3 hover:scale-105 hover:shadow-2xl duration-500 fade-up"
+         style="animation-delay: 0.5s">
+      <div class="text-5xl mb-4 transition-transform duration-500 hover:scale-125 hover:animate-bounce">📊</div>
+      <h3 class="font-bold text-xl mb-2">Progress Tracking</h3>
+      <p class="text-gray-600">Dashboard to measure your band improvement.</p>
+    </div>
+
+    <div class="bg-white p-8 rounded-xl shadow-lg transform transition 
+                hover:-translate-y-3 hover:scale-105 hover:shadow-2xl duration-500 fade-up"
+         style="animation-delay: 0.6s">
+      <div class="text-5xl mb-4 transition-transform duration-500 hover:scale-125 hover:animate-bounce">🌍</div>
+      <h3 class="font-bold text-xl mb-2">Study Abroad Support</h3>
+      <p class="text-gray-600">University counseling & visa guidance.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Animations -->
+<style>
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+
+  <!-- Footer -->
+ <footer class="bg-gray-800 text-gray-300 py-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <p>© 2025 IELTS Prep. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
+
