@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlobEdu - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeInUp 0.8s ease forwards; }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .fade-scale {
+      animation: fadeInScale 0.8s ease forwards;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow-md fixed w-full top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-2xl font-bold text-red-600 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
+             viewBox="0 0 24 24" class="w-7 h-7 text-red-600">
+          <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM11 21h2v-5.91l-2 .91V21z"/>
+        </svg>
+        GlobEdu
+      </h1>
+      
+      <!-- Nav links -->
+      <nav class="space-x-6 hidden md:flex items-center">
+        <div class="container mx-auto mt-6 px-6 text-center">
+          {% if user.is_authenticated %}
+            <span class="text-lg font-semibold tracking-wide text-gray-800">
+              Hey, {{ user.get_full_name|default:user.username }} 👋
+            </span>
+          {% else %}
+            <span class="text-lg font-semibold tracking-wide text-gray-600">
+              Welcome Guest 👋
+            </span>
+          {% endif %}
+        </div>
+
+        <a href="/about" class="text-gray-700 hover:text-red-600 transition">About</a>
+        <a href="/features" class="text-gray-700 hover:text-red-600 transition">Features</a>
+        <a href="/contact" class="text-gray-700 hover:text-red-600 transition">Contact</a>
+        <a href="{% url 'tests' %}" class="text-gray-700 hover:text-red-600 transition">Tests</a>
+        <a href="{% url 'notes' %}" class="text-gray-700 hover:text-red-600 transition">Notes</a>
+        
+        <!-- Profile Button -->
+        <a href="{% url 'profile' %}" 
+           class="text-gray-700 hover:text-red-600 transition">
+           Profile
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-red-600 to-red-400 text-white py-28 text-center fade-up">
+    <div class="container mx-auto">
+      <h1 class="text-5xl font-extrabold mb-6 animate-bounce">Crack IELTS with Confidence</h1>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        Prepare for Listening, Reading, Writing & Speaking with AI-powered tools, mock tests, and mentor support.
+      </p>
+      <a href="#countries" 
+         class="bg-white text-red-600 font-semibold px-6 py-3 rounded-lg shadow-lg 
+                hover:bg-gray-100 transition transform hover:scale-110">
+        Explore Countries 🌍
+      </a>
+    </div>
+  </section>
+
+  <!-- Country Flags Section -->
+  <section id="countries" class="py-16 bg-white shadow-md fade-up">
+    <div class="container mx-auto text-center">
+      <h3 class="text-2xl font-bold mb-8">Choose Your Country</h3>
+      <div class="flex flex-wrap justify-center gap-6">
+        <a href="/country/uk" class="fade-scale transform transition duration-300 hover:scale-110 hover:-translate-y-2" style="animation-delay: 0s;">
+          <img src="https://flagcdn.com/w80/gb.png" class="w-20 h-20 rounded-full shadow-lg border-2">
+        </a>
+        <a href="/country/us" class="fade-scale transform transition duration-300 hover:scale-110 hover:-translate-y-2" style="animation-delay: 0.1s;">
+          <img src="https://flagcdn.com/w80/us.png" class="w-20 h-20 rounded-full shadow-lg border-2">
+        </a>
+        <a href="/country/ca" class="fade-scale transform transition duration-300 hover:scale-110 hover:-translate-y-2" style="animation-delay: 0.2s;">
+          <img src="https://flagcdn.com/w80/ca.png" class="w-20 h-20 rounded-full shadow-lg border-2">
+        </a>
+        <a href="/country/au" class="fade-scale transform transition duration-300 hover:scale-110 hover:-translate-y-2" style="animation-delay: 0.3s;">
+          <img src="https://flagcdn.com/w80/au.png" class="w-20 h-20 rounded-full shadow-lg border-2">
+        </a>
+        <a href="/country/in" class="fade-scale transform transition duration-300 hover:scale-110 hover:-translate-y-2" style="animation-delay: 0.4s;">
+          <img src="https://flagcdn.com/w80/in.png" class="w-20 h-20 rounded-full shadow-lg border-2">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Access Section -->
+  <section class="py-16 bg-gray-100 fade-up">
+    <div class="container mx-auto text-center">
+      <h3 class="text-2xl font-bold mb-10">Quick Access</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Tests -->
+        <div class="bg-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <i class="fas fa-book text-4xl text-red-600 mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Tests</h4>
+          <p class="text-gray-600 mb-4">Practice IELTS mock tests and track your progress.</p>
+          <a href="{% url 'tests' %}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Start Test</a>
+        </div>
+        
+        <!-- Notes -->
+        <div class="bg-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <i class="fas fa-pen text-4xl text-red-600 mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Notes</h4>
+          <p class="text-gray-600 mb-4">Save and review your preparation notes anytime.</p>
+          <a href="{% url 'notes' %}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">View Notes</a>
+        </div>
+        
+        <!-- Profile -->
+        <div class="bg-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <i class="fas fa-user text-4xl text-red-600 mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Profile</h4>
+          <p class="text-gray-600 mb-4">Manage your account and personal details.</p>
+          <a href="{% url 'profile' %}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Go to Profile</a>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="bg-gray-100 py-20 fade-up">
+    <div class="container mx-auto text-center">
+      <h3 class="text-3xl font-bold mb-12">Success Stories</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <p class="italic">“I scored 8.0 Band with this platform!”</p>
+          <h4 class="mt-4 font-semibold">- John, Student</h4>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <p class="italic">“Best IELTS practice site I’ve ever used.”</p>
+          <h4 class="mt-4 font-semibold">- Noah, Student</h4>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <p class="italic">“Helped me get admission in UK university.”</p>
+          <h4 class="mt-4 font-semibold">- Mike, Student</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <p>© 2025 IELTS Prep. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
