@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notes Management</title>
+    <style>
+        body { font-family: Arial; padding:20px; background:#f5f6fa; }
+        table { width:100%; border-collapse:collapse; margin-top:20px; }
+        th, td { padding:12px; border-bottom:1px solid #ddd; }
+        a.add-btn {
+            padding:10px 15px; background:#00b894; 
+            color:white; text-decoration:none; border-radius:5px;
+        }
+        a.edit { color:#0984e3; }
+        a.delete { color:#d63031; }
+    </style>
+</head>
+<body>
+    <h1>Notes</h1>
+
+    <a href="{% url 'add-note' %}" class="add-btn">+ Add New Note</a>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Created</th>
+            <th>Actions</th>
+        </tr>
+        {% for n in notes %}
+        <tr>
+            <td>{{ n.title }}</td>
+            <td>{{ n.created_at }}</td>
+            <td>
+                <a class="edit" href="{% url 'edit-note' n.id %}">Edit</a> |
+                <a class="delete" href="{% url 'delete-note' n.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
