@@ -1,0 +1,30 @@
+{% extends 'myapp/home.html' %}
+{% block content %}
+
+<h2 class="mb-4">Manage Vocabulary</h2>
+
+<a href="{% url 'vocab_create' %}" class="btn btn-primary mb-3">+ Add Word</a>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Word</th>
+        <th>Meaning</th>
+        <th>Example</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for v in words %}
+    <tr>
+        <td>{{ v.word }}</td>
+        <td>{{ v.meaning }}</td>
+        <td>{{ v.example }}</td>
+        <td>
+            <a href="{% url 'vocab_edit' v.id %}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{% url 'vocab_delete' v.id %}" class="btn btn-danger btn-sm"
+               onclick="return confirm('Delete this word?')">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'myapp/home.html' %}
+
+{% block content %}
+<h2>{{ note.id|default:'Create Note' }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <label>Title:</label>
+    <input class="form-control" type="text" name="title" value="{{ note.title|default:'' }}"><br>
+
+    <label>Content:</label>
+    <textarea class="form-control" name="content" rows="6">{{ note.content|default:'' }}</textarea><br>
+
+    <button class="btn btn-success" type="submit">Save</button>
+</form>
+
+{% endblock %}

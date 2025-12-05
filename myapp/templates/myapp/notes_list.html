@@ -1,0 +1,27 @@
+{% extends 'myapp/home.html' %}
+
+{% block content %}
+<h2 class="mt-4">Your Notes</h2>
+
+<a href="{% url 'notes_create' %}" class="btn btn-primary my-3">Create New Note</a>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Title</th>
+        <th>Updated</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for n in notes %}
+    <tr>
+        <td>{{ n.title }}</td>
+        <td>{{ n.updated_at }}</td>
+        <td>
+            <a href="{% url 'notes_edit' n.id %}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{% url 'notes_delete' n.id %}" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

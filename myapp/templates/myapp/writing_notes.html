@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing Notes – GlobEdu</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- Header -->
+<header class="bg-white shadow-md fixed w-full top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center py-4 px-6">
+    <h1 class="text-2xl font-bold text-red-600">Writing Notes ✍️</h1>
+    <a href="{% url 'notes' %}" class="bg-white text-red-600 px-4 py-2 rounded-lg hover:bg-gray-100">⬅ Back</a>
+  </div>
+</header>
+
+<section class="container mx-auto pt-28 pb-16 px-6">
+  <h2 class="text-3xl font-bold text-center mb-6">Build Your Vocabulary</h2>
+  <p class="text-center text-gray-600 mb-10">Write and store your own IELTS vocabulary list.</p>
+
+  <!-- Notes Box -->
+  <form method="POST" class="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-lg">
+    {% csrf_token %}
+
+    <label class="font-semibold text-gray-700 mb-2 block">Your Vocabulary Notes:</label>
+    <textarea name="notes" rows="12"
+      class="w-full border rounded-lg p-4 focus:ring-2 ring-red-400 outline-none"
+      placeholder="Write your vocabulary, meanings, example sentences..."
+    >{{ notes.text }}</textarea>
+
+    <button type="submit"
+      class="mt-6 w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition">
+      💾 Save Notes
+    </button>
+  </form>
+
+  <!-- Last Updated -->
+  {% if notes.updated_at %}
+  <p class="text-center text-gray-500 mt-4 text-sm">
+    Last updated: {{ notes.updated_at }}
+  </p>
+  {% endif %}
+
+</section>
+
+</body>
+</html>

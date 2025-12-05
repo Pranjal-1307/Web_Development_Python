@@ -1,0 +1,150 @@
+<!-- save as writing.html (overwrite existing) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IELTS Writing Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md fixed w-full top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-2xl font-bold text-red-600">GlobEdu</h1>
+      <a href="{% url 'tests' %}" class="bg-white text-red-600 px-4 py-2 rounded-lg hover:bg-gray-100">⬅ Back</a>
+    </div>
+  </header>
+
+  <!-- Stopwatch -->
+  <section class="container mx-auto mt-20 px-6 text-center">
+    <h2 class="text-xl font-semibold text-gray-700 mb-2">⏱ IELTS Writing Timer</h2>
+    <div id="timer" class="text-3xl font-bold text-red-600 mb-4">00:00</div>
+    <button onclick="startTimer()" class="bg-green-600 text-white px-4 py-2 rounded-lg mr-2">Start</button>
+    <button onclick="stopTimer()" class="bg-yellow-500 text-white px-4 py-2 rounded-lg mr-2">Stop</button>
+    <button onclick="resetTimer()" class="bg-gray-600 text-white px-4 py-2 rounded-lg">Reset</button>
+  </section>
+
+  <!-- Writing Test -->
+  <section class="container mx-auto py-8 px-6">
+    <h2 class="text-3xl font-bold mb-6 text-center text-red-600">IELTS Writing Practice Test</h2>
+
+    <div class="bg-white shadow-md rounded-xl p-6">
+      <h3 class="text-xl font-semibold mb-4">Task: Use the required phrase in a short essay</h3>
+      <p class="text-gray-600 mb-4">A random band-7+ phrase will be provided. Include the phrase in your 120–200 word response. Scoring checks for phrase inclusion + keywords.</p>
+
+      <div class="mb-4">
+        <button id="generatePrompt" class="bg-red-600 text-white px-4 py-2 rounded-lg">🔁 Generate Phrase Prompt</button>
+      </div>
+
+      <div id="promptBox" class="p-4 bg-blue-50 border rounded-lg mb-4 min-h-[60px]"></div>
+
+      <textarea id="writingAnswer" class="w-full border rounded-lg px-3 py-2 mt-2" rows="8" placeholder="Write your answer here..."></textarea>
+
+      <div class="flex gap-3 mt-4">
+        <button id="submitWriting" class="mt-2 bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700">Submit Answers</button>
+        <button id="clearWriting" class="mt-2 bg-gray-300 text-black px-4 py-2 rounded-lg">Clear</button>
+      </div>
+
+      <p id="score" class="mt-4 font-semibold text-lg text-green-600"></p>
+    </div>
+  </section>
+
+<script>
+  // Stopwatch
+  let timerInterval;
+  let seconds = 0;
+
+  function updateTimer() {
+    let mins = Math.floor(seconds / 60);
+    let secs = seconds % 60;
+    document.getElementById("timer").innerText =
+      (mins < 10 ? "0" : "") + mins + ":" + (secs < 10 ? "0" : "") + secs;
+  }
+
+  function startTimer() {
+    if (!timerInterval) {
+      timerInterval = setInterval(() => {
+        seconds++;
+        updateTimer();
+      }, 1000);
+    }
+  }
+
+  function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  function resetTimer() {
+    stopTimer();
+    seconds = 0;
+    updateTimer();
+  }
+
+  // Writing prompt pool (phrases + example keywords to prefer)
+  const writingPrompts = [
+    { phrase: "There is no denying that", keywords: ["technology","change","impact","society"] },
+    { phrase: "Not only ... but also", keywords: ["benefit","advantage","both","improve"] },
+    { phrase: "It is widely believed that", keywords: ["opinion","majority","believe","view"] },
+    { phrase: "The more…, the more…", keywords: ["increase","improve","rise","grow"] },
+    { phrase: "In spite of the fact that", keywords: ["although","despite","however","nonetheless"] },
+    { phrase: "It could be argued that", keywords: ["argue","claim","suggest","point"] },
+    { phrase: "What is important to note is that", keywords: ["important","note","consider","significant"] },
+    { phrase: "It is essential that", keywords: ["must","necessary","essential","need"] }
+  ];
+
+  let currentPrompt = null;
+
+  document.getElementById('generatePrompt').addEventListener('click', () => {
+    currentPrompt = writingPrompts[Math.floor(Math.random() * writingPrompts.length)];
+    document.getElementById('promptBox').innerHTML = `
+      <div class="font-semibold">Required phrase: <span class="text-red-600">${currentPrompt.phrase}</span></div>
+      <div class="text-sm text-gray-600 mt-1">Suggested words to include (helpful for higher score): ${currentPrompt.keywords.join(', ')}</div>
+      <div class="text-xs text-gray-500 mt-1">Write 120-200 words and include the exact required phrase somewhere in your answer.</div>
+    `;
+  });
+
+  // If user opens page, generate one prompt by default
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('generatePrompt').click();
+    updateTimer();
+  });
+
+  document.getElementById('submitWriting').addEventListener('click', () => {
+    const answer = document.getElementById('writingAnswer').value.trim().toLowerCase();
+    if (!answer) {
+      alert("Please write your answer before submitting.");
+      return;
+    }
+    let score = 0;
+    // 1) phrase inclusion (exact phrase lowercased)
+    if (currentPrompt && answer.includes(currentPrompt.phrase.toLowerCase())) {
+      score += 2; // phrase is essential — gives 2 marks
+    }
+    // 2) keyword presence: each present keyword adds 1 mark (max 3)
+    let kwCount = 0;
+    if (currentPrompt) {
+      currentPrompt.keywords.forEach(k => {
+        if (answer.includes(k.toLowerCase())) kwCount++;
+      });
+      if (kwCount > 3) kwCount = 3;
+      score += kwCount;
+    }
+    // 3) length check: +1 mark if within 120-200 words
+    const wordCount = answer.split(/\s+/).filter(Boolean).length;
+    if (wordCount >= 120 && wordCount <= 200) score += 1;
+
+    // Max possible = 2 (phrase) + 3 (keywords) + 1 (length) = 6
+    document.getElementById('score').innerText = `Your Score: ${score} / 6  (Words: ${wordCount})`;
+  });
+
+  document.getElementById('clearWriting').addEventListener('click', () => {
+    document.getElementById('writingAnswer').value = "";
+    document.getElementById('score').innerText = "";
+  });
+</script>
+
+</body>
+</html>

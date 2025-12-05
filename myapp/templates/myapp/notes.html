@@ -1,0 +1,450 @@
+<!-- save as notes.html (overwrite existing) -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GlobEdu - Notes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md fixed w-full top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-2xl font-bold text-red-600 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-7 h-7 text-red-600">
+          <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM11 21h2v-5.91l-2 .91V21z"/>
+        </svg>
+        GlobEdu
+      </h1>
+      <a href="{% url 'home' %}" class="bg-white text-red-600 px-4 py-2 rounded-lg hover:bg-gray-100">🏠 Home</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="text-center pt-24 pb-16 bg-gradient-to-r from-red-600 to-red-400 text-white">
+    <h1 class="text-4xl font-extrabold mb-4">My Notes</h1>
+    <p class="text-lg max-w-2xl mx-auto">Create, view, and manage your IELTS preparation notes.</p>
+     <!-- Manage Notes button (visible only to superstudent) -->
+    {% if user.is_authenticated and user.profile.role == 'superstudent' %}
+      <div class="mt-6">
+        <a href="{% url 'notes_list' %}" class="inline-block bg-yellow-400 text-black px-4 py-2 rounded-lg hover:bg-yellow-300">
+          📝 Manage Notes
+        </a>
+      </div>
+    {% endif %}
+  </section>
+
+  <!-- Listening Practice -->
+  <section class="container mx-auto pt-8 pb-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">Listening Practice 🎧</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h3 class="text-xl font-bold mb-3">Spelling Names & Places</h3>
+        <audio controls class="w-full mb-3" src="{% static 'audio/CGtoIELTS_04.mp3' %}"></audio>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h3 class="text-xl font-bold mb-3">Numbers & Dates</h3>
+        <audio controls class="w-full mb-3" src="{% static 'audio/CGtoIELTS_05.mp3' %}"></audio>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h3 class="text-xl font-bold mb-3">Following Conversations</h3>
+        <audio controls class="w-full mb-3" src="{% static 'audio/CGtoIELTS_09.mp3' %}"></audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reading, Writing, Speaking Skills -->
+  <section class="container mx-auto py-16 px-6 space-y-16">
+
+    <!-- READING SECTION -->
+    <div>
+      <h2 class="text-3xl font-bold text-center mb-10">Reading Skills & Strategies 📖</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div class="modal-trigger bg-white p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform cursor-pointer"
+             data-modal-id="reading-active">
+          <h4 class="font-bold text-lg mb-2">Active Reading</h4>
+          <p class="text-gray-600">Techniques to improve comprehension and speed.</p>
+        </div>
+
+        <a href="{% url 'writing_notes' %}"
+           class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform block">
+          <h4 class="font-bold text-lg mb-2">Build Your Vocabulary</h4>
+          <p class="text-gray-600">Make your own vocabulary notes & save them.</p>
+        </a>
+
+        <div class="modal-trigger bg-white p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform cursor-pointer"
+             data-modal-id="reading-pdf">
+          <h4 class="font-bold text-lg mb-2">IELTS Reading Practice PDF</h4>
+          <p class="text-gray-600">Open the practice test with passages & questions.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Writing -->
+    <div>
+      <h2 class="text-3xl font-bold text-center mb-10">Writing Skills & Strategies ✍️</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div class="modal-trigger bg-white p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform cursor-pointer"
+             data-modal-id="writing-plan">
+          <h4 class="font-bold text-lg mb-2">Plan Before You Write</h4>
+          <p class="text-gray-600">How to structure your ideas in the first 5 minutes.</p>
+        </div>
+
+        <div class="modal-trigger bg-white p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform cursor-pointer"
+             data-modal-id="writing-grammar">
+          <h4 class="font-bold text-lg mb-2">Grammatical Range</h4>
+          <p class="text-gray-600">Using a mix of sentence structures to boost your score.</p>
+        </div>
+
+        <div class="modal-trigger bg-white p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform cursor-pointer"
+             data-modal-id="writing-pdf">
+          <h4 class="font-bold text-lg mb-2">IELTS Writing Practice PDF</h4>
+          <p class="text-gray-600">Open sample tasks and model answers.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Speaking -->
+    <div>
+      <h2 class="text-3xl font-bold text-center mb-10">Speaking Skills & Strategies 🎤</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="modal-trigger bg-white p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform cursor-pointer"
+             data-modal-id="speaking-fluency">
+          <h4 class="font-bold text-lg mb-2">Focus on Fluency</h4>
+          <p class="text-gray-600">Tips for speaking smoothly and connecting ideas.</p>
+        </div>
+        <div class="modal-trigger bg-white p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform cursor-pointer"
+             data-modal-id="speaking-vocab">
+          <h4 class="font-bold text-lg mb-2">Expand Your Vocabulary</h4>
+          <p class="text-gray-600">Using topic-specific words and paraphrasing.</p>
+        </div>
+        <div class="modal-trigger bg-white p-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform cursor-pointer"
+             data-modal-id="speaking-pronunciation">
+          <h4 class="font-bold text-lg mb-2">Improve Pronunciation</h4>
+          <p class="text-gray-600">Focusing on clarity, stress, and intonation.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Modal -->
+  <div id="notes-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4 hidden">
+    <div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto p-8 relative">
+        <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold">&times;</button>
+        <h3 id="modal-title" class="text-2xl font-bold text-red-600 mb-4"></h3>
+        <div id="modal-body" class="text-gray-700 space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- Hidden Modal Content -->
+  <div class="hidden">
+
+    <!-- Reading PDF -->
+    <div id="reading-pdf-content" data-title="IELTS Reading Practice PDF">
+      <p class="mb-4">Here’s a sample IELTS Reading practice test. You can preview it or download it.</p>
+      <iframe src="{% static 'pdf/IELTS_Reading_New_15_Pages.pdf' %}" class="w-full h-[500px] border rounded-lg"></iframe>
+      <a href="{% static 'pdf/IELTS_Reading_New_15_Pages.pdf' %}" class="mt-4 inline-block bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700" download>
+        📥 Download Reading PDF
+      </a>
+    </div>
+
+    <!-- Writing PDF -->
+    <div id="writing-pdf-content" data-title="IELTS Writing Practice PDF">
+      <p class="mb-4">Here’s a sample IELTS Writing practice test. You can preview it or download it.</p>
+      <iframe src="{% static 'pdf/IELTS_Writing_New_15_Pages.pdf' %}" class="w-full h-[500px] border rounded-lg"></iframe>
+      <a href="{% static 'pdf/IELTS_Writing_New_15_Pages.pdf' %}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" download>
+        ✍️ Download Writing PDF
+      </a>
+    </div>
+
+    <!-- Writing Grammar Modal -->
+    <div id="writing-grammar-content" data-title="Grammatical Range - Improve Your Sentence Variety">
+
+      <p class="mb-4">Click “Generate Grammar Phrase” to get a random IELTS Band-7+ grammar structure. Click any phrase to save it into your Writing Plan.</p>
+
+      <button id="generateGrammarBtn"
+          class="mb-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+          🔄 Generate Grammar Phrase
+      </button>
+
+      <div id="grammarResult" class="text-lg font-semibold text-blue-700 mb-4"></div>
+
+      <h4 class="font-bold text-lg mt-6 mb-2">Saved for Writing Plan (Full Notes):</h4>
+      <div id="savedGrammarList" class="flex flex-col gap-2"></div>
+
+      <p class="text-gray-500 text-sm mt-4">Saved phrases are stored as full notes including a suggested example sentence. Click any saved note to copy it.</p>
+
+    </div>
+
+    <!-- Writing Plan Modal -->
+    <div id="writing-plan-content" data-title="Plan Before You Write">
+      <p class="mb-4">Use this section to plan ideas, structure paragraphs, and prepare before writing your Task 2 essay.</p>
+
+      <hr class="my-4">
+
+      <h3 class="text-xl font-bold mb-2 text-red-600">Your Saved Grammar Structures (Full)</h3>
+      <p class="text-gray-600 mb-2">These are the grammar structures you saved from the Grammatical Range tool (full notes & example sentences).</p>
+      <div id="writingPlanGrammarList" class="flex flex-col gap-2"></div>
+    </div>
+
+    <!-- Speaking Practice (Notes) Modal -->
+    <div id="speaking-practice-content" data-title="Speaking Practice - Paragraph & Mic">
+      <p class="mb-4">Generate a random paragraph and practice speaking it. Use the Record button to capture your voice, Play to listen, and Evaluate to get a basic pronunciation/transcript check.</p>
+
+      <div class="mb-4">
+        <button id="generateSpeakPara" class="bg-red-600 text-white px-4 py-2 rounded-lg mr-2">🔁 Generate Paragraph</button>
+        <button id="startRecBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg mr-2">● Record</button>
+        <button id="stopRecBtn" class="bg-yellow-500 text-white px-4 py-2 rounded-lg mr-2" disabled>■ Stop</button>
+        <button id="playRecBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg" disabled>▶ Play</button>
+      </div>
+
+      <div id="speakPara" class="p-4 bg-gray-50 rounded-lg border mb-4 min-h-[80px]"></div>
+
+      <audio id="playback" controls class="w-full mb-3 hidden"></audio>
+
+      <div id="speakResult" class="text-gray-700"></div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-6">
+    <div class="container mx-auto text-center">
+      <p>© 2025 GlobEdu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('notes-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const triggerCards = document.querySelectorAll('.modal-trigger');
+
+    const openModal = (modalId) => {
+        const contentDiv = document.getElementById(`${modalId}-content`);
+        if (contentDiv) {
+            modalTitle.textContent = contentDiv.getAttribute('data-title');
+            modalBody.innerHTML = contentDiv.innerHTML;
+            modal.classList.remove('hidden');
+
+            if (modalId === "writing-plan") {
+                setTimeout(loadGrammarIntoPlanModal, 200);
+            }
+            if (modalId === "writing-grammar") {
+                setTimeout(loadSavedGrammar, 200);
+            }
+            if (modalId === "speaking-practice") {
+                setTimeout(initSpeakingPracticeControls, 200);
+            }
+        }
+    };
+
+    const closeModal = () => {
+        modal.classList.add('hidden');
+    };
+
+    triggerCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const modalId = card.getAttribute('data-modal-id');
+            openModal(modalId);
+        });
+    });
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+});
+</script>
+
+<!-- GRAMMAR GENERATOR LOGIC (now saves full notes with example sentence) -->
+<script>
+const grammarItems = [
+  { phrase: "Not only ... but also ...", example: "Not only did the company increase sales, but it also expanded into new markets."},
+  { phrase: "Had I known, I would have ...", example: "Had I known about the delay, I would have left earlier."},
+  { phrase: "It is widely believed that ...", example: "It is widely believed that education drives economic growth."},
+  { phrase: "There is no denying that ...", example: "There is no denying that technology has changed our lives."},
+  { phrase: "The more…, the more…", example: "The more you practice, the more confident you become."},
+  { phrase: "In spite of the fact that …", example: "In spite of the fact that it rained, the event continued."},
+  { phrase: "Were it not for …", example: "Were it not for her persistence, the project would have failed."},
+  { phrase: "It could be argued that …", example: "It could be argued that stricter laws are necessary."},
+  { phrase: "Hardly had I … when …", example: "Hardly had I arrived when the meeting started."},
+  { phrase: "What is important to note is that …", example: "What is important to note is that small steps lead to big changes."},
+  { phrase: "It is essential that …", example: "It is essential that we address climate issues early."},
+  { phrase: "No sooner had … than …", example: "No sooner had the lecture begun than the fire alarm rang."},
+  { phrase: "It is apparent that …", example: "It is apparent that pollution levels are rising."},
+  { phrase: "While it is true that …", example: "While it is true that costs are rising, benefits remain."},
+  { phrase: "On the one hand … on the other hand …", example: "On the one hand education is expensive; on the other hand it yields benefits."}
+];
+
+function loadSavedGrammar() {
+    const container = document.getElementById("savedGrammarList");
+    if (!container) return;
+
+    container.innerHTML = "";
+    const saved = JSON.parse(localStorage.getItem("savedGrammarFull") || "[]");
+
+    saved.forEach((item, idx) => {
+        const badge = document.createElement("div");
+        badge.className = "p-3 bg-blue-50 border rounded-lg cursor-pointer";
+        badge.innerHTML = `<strong>${item.phrase}</strong><div class="text-sm text-gray-600 mt-1">${item.example}</div>`;
+        badge.addEventListener('click', () => {
+            navigator.clipboard?.writeText(`${item.phrase} — e.g. ${item.example}`);
+            alert("Copied full note to clipboard.");
+        });
+        container.appendChild(badge);
+    });
+}
+
+function saveGrammarFull(obj) {
+    let saved = JSON.parse(localStorage.getItem("savedGrammarFull") || "[]");
+    // avoid duplicates by phrase
+    if (!saved.some(s => s.phrase === obj.phrase)) {
+        saved.push(obj);
+        localStorage.setItem("savedGrammarFull", JSON.stringify(saved));
+        loadSavedGrammar();
+    }
+}
+
+document.addEventListener("click", function(e) {
+    if (e.target.id === "generateGrammarBtn") {
+        const random = grammarItems[Math.floor(Math.random() * grammarItems.length)];
+        const resultBox = document.getElementById("grammarResult");
+
+        resultBox.innerHTML = `
+            <div class="p-3 bg-green-50 border rounded-lg cursor-pointer" id="generatedPhrase">
+                <strong>${random.phrase}</strong>
+                <div class="text-sm text-gray-600 mt-1">${random.example}</div>
+                <p class="text-gray-500 text-sm mt-1">(Click to save full note)</p>
+            </div>
+        `;
+    }
+
+    if (e.target.closest('#generatedPhrase')) {
+        const phraseEl = e.target.closest('#generatedPhrase');
+        const phrase = phraseEl.querySelector('strong')?.innerText || '';
+        const example = phraseEl.querySelector('div')?.innerText || '';
+        if (phrase) saveGrammarFull({ phrase, example });
+    }
+});
+
+function loadGrammarIntoPlanModal() {
+    const container = document.getElementById("writingPlanGrammarList");
+    if (!container) return;
+
+    container.innerHTML = "";
+    const saved = JSON.parse(localStorage.getItem("savedGrammarFull") || "[]");
+
+    if (saved.length === 0) {
+        container.innerHTML = `<p class="text-gray-500 text-sm">No grammar saved yet.</p>`;
+        return;
+    }
+
+    saved.forEach(item => {
+        const badge = document.createElement("div");
+        badge.className = "p-3 bg-purple-50 border rounded-lg";
+        badge.innerHTML = `<strong>${item.phrase}</strong><div class="text-sm text-gray-600 mt-1">${item.example}</div>`;
+        container.appendChild(badge);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadSavedGrammar();
+});
+</script>
+
+<!-- SPEAKING PRACTICE (notes) - paragraph generator + record/playback -->
+<script>
+const speakParagraphs = [
+  "Describe an event you recently attended. Explain why it was important to you and what you learned from it.",
+  "Talk about a book that influenced your thinking. Describe the main idea and why it was meaningful.",
+  "Describe your favorite place to relax. Explain what makes it special and how often you visit it.",
+  "Discuss a hobby you enjoy. Explain how you started and what benefits it brings to your life.",
+  "Describe a difficult decision you made. Explain the factors you considered and the result."
+];
+
+function initSpeakingPracticeControls() {
+    const genBtn = document.getElementById('generateSpeakPara');
+    const startBtn = document.getElementById('startRecBtn');
+    const stopBtn = document.getElementById('stopRecBtn');
+    const playBtn = document.getElementById('playRecBtn');
+    const paraBox = document.getElementById('speakPara');
+    const resultBox = document.getElementById('speakResult');
+    const playback = document.getElementById('playback');
+
+    let mediaRecorder, recordedChunks = [];
+
+    function generatePara() {
+        paraBox.innerText = speakParagraphs[Math.floor(Math.random() * speakParagraphs.length)];
+        resultBox.innerText = "";
+        playback.classList.add('hidden');
+        playBtn.disabled = true;
+    }
+
+    genBtn?.addEventListener('click', generatePara);
+
+    startBtn?.addEventListener('click', async () => {
+        // ask microphone permissions
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            recordedChunks = [];
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = function(e) {
+                if (e.data.size > 0) recordedChunks.push(e.data);
+            };
+            mediaRecorder.onstop = function() {
+                const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+                const url = URL.createObjectURL(blob);
+                playback.src = url;
+                playback.classList.remove('hidden');
+                playBtn.disabled = false;
+                resultBox.innerText = `Recorded ${Math.round(blob.size/1024)} KB. Use Play to listen.`;
+            };
+            mediaRecorder.start();
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            resultBox.innerText = "Recording...";
+        } catch (err) {
+            alert("Microphone access denied or not available.");
+        }
+    });
+
+    stopBtn?.addEventListener('click', () => {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+        }
+    });
+
+    playBtn?.addEventListener('click', () => {
+        playback.play();
+    });
+
+    // init defaults
+    generatePara();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Speaking Test</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 p-6">
+
+<h1 class="text-3xl font-bold mb-6 text-red-600">Speaking Test</h1>
+
+<button id="newParaBtn" class="bg-red-600 text-white px-6 py-2 rounded mb-4">🔀 New Paragraph</button>
+
+<div id="paraBox" class="bg-white p-4 rounded shadow mb-4 text-lg"></div>
+
+<button id="recordBtn" class="bg-green-600 text-white px-6 py-2 rounded">🎙 Start Recording</button>
+<button id="stopBtn" class="bg-yellow-500 text-white px-6 py-2 rounded" disabled>⏹ Stop</button>
+
+<audio id="audioPlayback" controls class="hidden mt-4"></audio>
+
+<button id="scoreBtn" class="bg-blue-600 text-white px-6 py-2 rounded mt-4 hidden">Check Pronunciation Score</button>
+
+<div id="scoreBox" class="hidden bg-white p-4 rounded shadow text-lg font-bold mt-4"></div>
+
+<script>
+const paragraphs = [
+    "Describe a memorable event from your life.",
+    "Talk about your favorite place and why you like it.",
+    "Explain a difficult decision you had to make.",
+    "Describe someone who inspires you and why.",
+    "Talk about a challenge you overcame.",
+];
+
+document.getElementById("newParaBtn").onclick = () => {
+    let p = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+    document.getElementById("paraBox").textContent = p;
+};
+
+document.getElementById("newParaBtn").click();
+
+let recorder, audioChunks = [];
+
+document.getElementById("recordBtn").onclick = async () => {
+    let stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    recorder = new MediaRecorder(stream);
+    audioChunks = [];
+
+    recorder.ondataavailable = e => audioChunks.push(e.data);
+    recorder.onstop = () => {
+        let blob = new Blob(audioChunks, {type:'audio/mp3'});
+        let url = URL.createObjectURL(blob);
+        let audio = document.getElementById("audioPlayback");
+
+        audio.src = url;
+        audio.classList.remove("hidden");
+
+        document.getElementById("scoreBtn").classList.remove("hidden");
+    };
+
+    recorder.start();
+    document.getElementById("recordBtn").disabled = true;
+    document.getElementById("stopBtn").disabled = false;
+};
+
+document.getElementById("stopBtn").onclick = () => {
+    recorder.stop();
+    document.getElementById("recordBtn").disabled = false;
+    document.getElementById("stopBtn").disabled = true;
+};
+
+document.getElementById("scoreBtn").onclick = () => {
+    let reference = document.getElementById("paraBox").textContent.toLowerCase().split(" ");
+    let spokenLength = audioChunks.length;
+
+    let score = Math.min(100, Math.floor((spokenLength / reference.length) * 100));
+
+    document.getElementById("scoreBox").classList.remove("hidden");
+    document.getElementById("scoreBox").textContent = `Pronunciation Score: ${score}/100`;
+};
+</script>
+
+</body>
+</html>
