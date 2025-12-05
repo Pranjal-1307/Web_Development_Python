@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body { font-family: DejaVu Sans, sans-serif; margin: 30px; }
+    h1 { text-align: center; }
+    .section { page-break-after: always; }
+  </style>
+</head>
+<body>
+
+<h1>IELTS Reading Practice – Latest Version</h1>
+
+{% for passage in passages %}
+<div class="section">
+  <h2>{{ passage.title }}</h2>
+  <p>{{ passage.passage_text|linebreaksbr }}</p>
+
+  <h3>Questions:</h3>
+  <ol>
+    {% for q in passage.questions.all %}
+    <li>{{ q.question_text }}</li>
+    {% endfor %}
+  </ol>
+</div>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply Now - GlobEdu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-2xl font-bold text-red-600">GlobEdu</h1>
+      <a href="{% url 'home' %}" class="text-gray-700 hover:text-red-600">🏠 Home</a>
+    </div>
+  </header>
+
+  <section class="py-16">
+    <div class="container mx-auto max-w-2xl px-6">
+      <div class="bg-white p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Application Form</h2>
+        
+        <form action="{% url 'apply_now' %}" method="post" class="space-y-6">
+          {% csrf_token %}
+          
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
+            <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500">
+          </div>
+          
+          <div>
+            <label for="father_name" class="block text-sm font-medium text-gray-700">Father's Name:</label>
+            <input type="text" id="father_name" name="father_name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500">
+          </div>
+          
+          <div>
+            <label for="mobile" class="block text-sm font-medium text-gray-700">Mobile Number:</label>
+            <input type="text" id="mobile" name="mobile" pattern="[0-9]{10}" maxlength="10" placeholder="Enter 10 digit number" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500">
+            <small class="text-gray-500">Must be exactly 10 digits.</small>
+          </div>
+          
+          <div>
+            <label for="education" class="block text-sm font-medium text-gray-700">Education:</label>
+            <select id="education" name="education" required class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500">
+              <option value="">--Select Education--</option>
+              <option value="High School">High School</option>
+              <option value="Diploma">Diploma</option>
+              <option value="Undergraduate">Undergraduate</option>
+              <option value="Postgraduate">Postgraduate</option>
+              <option value="PhD">PhD</option>
+            </select>
+          </div>
+          
+          <div>
+            <label for="country" class="block text-sm font-medium text-gray-700">Country:</label>
+            <select id="country" name="country" required class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500">
+              <option value="">--Select Country--</option>
+              <option value="India">India</option>
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Canada">Canada</option>
+              <option value="Australia">Australia</option>
+              <option value="Germany">Germany</option>
+              <option value="France">France</option>
+              <option value="Japan">Japan</option>
+              <option value="China">China</option>
+              <option value="Brazil">Brazil</option>
+            </select>
+          </div>
+          
+          <div class="text-center pt-4">
+            <button type="submit" class="w-full bg-red-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-red-700 transition transform hover:scale-105">
+              Submit Application
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-gray-300 py-6 text-center">
+    <p>© 2025 IELTS Prep. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

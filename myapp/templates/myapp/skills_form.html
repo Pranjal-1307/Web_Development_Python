@@ -1,0 +1,15 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<h2>{{ skill.title|default:"Create Reading Skill" }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label>Title</label>
+    <input type="text" name="title" class="form-control" value="{{ skill.title|default:'' }}">
+
+    <label>Description</label>
+    <textarea name="description" class="form-control">{{ skill.description|default:'' }}</textarea>
+
+    <button class="btn btn-success mt-2">Save</button>
+</form>
+{% endblock %}
